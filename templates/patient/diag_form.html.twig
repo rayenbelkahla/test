@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+{{ form_label(form.symptoms, 'Symptoms') }}
+{{ form_errors(form.symptoms) }}
+{{ form_widget(form.symptoms, { 'attr': {'class': 'form-control', 'multiple': 'multiple'} }) }}
+{{ form_end(form) }}

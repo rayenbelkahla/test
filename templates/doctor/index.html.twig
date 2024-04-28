@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Doctor index{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des médecins</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Spécialité</th>
+                <th scope="col">Région du cabinet</th>
+                <th scope="col">Adresse du cabinet</th>
+                <th scope="col">Téléphone du cabinet</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor.id }}</td>
+                <td>{{ doctor.specialty }}</td>
+                <td>{{ doctor.officeRegion }}</td>
+                <td>{{ doctor.officeAddress }}</td>
+                <td>{{ doctor.officePhone }}</td>
+                <td>
+                    <a href="{{ path('app_doctor_show', {'id': doctor.id}) }}" class="btn btn-primary">Voir</a>
+                    <a href="{{ path('app_doctor_edit', {'id': doctor.id}) }}" class="btn btn-warning">Modifier</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">Aucun enregistrement trouvé</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_doctor_new') }}" class="btn btn-success">Ajouter un médecin</a>
+</div>
+{% endblock %}

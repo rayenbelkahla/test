@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Patient index
+{% endblock %}
+
+{% block body %}
+	{# <h1>Patient index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Region</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for patient in patients %}
+				<tr>
+					<td>{{ patient.id }}</td>
+					<td>{{ patient.region }}</td>
+					<td>
+						<a href="{{ path('app_patient_show', {'id': patient.id}) }}">show</a>
+						<a href="{{ path('app_patient_edit', {'id': patient.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_patient_new') }}">Create new</a> #}
+
+	<div class=" space">
+		<table class="cart_table woocommerce-cart-form">
+			<thead>
+				<tr>
+					<th class="cart-col-Nom">Nom Complet</th>
+					<th class="cart-col-Region">Region</th>
+					<th class="cart-col-phone">phone</th>
+					<th class="cart-col-consultaion">Nombre de consultaion</th>
+
+					<th class="cart-col-Action">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+            			{% for patient in patients %}
+
+<tr class="cart_item">
+					<td data-title="Nom Complet">
+						<span>{{ patient.user.firstName}} {{ patient.user.lastName}}</span>
+					</td>
+					<td data-title="Region">
+						<span>{{ patient.region}}</span>
+					</td>
+					<td data-title="Phone">
+						<span>{{ patient.user.phone}}</span>
+					</td>
+					<td data-title="Nombre de Consultation">
+						<span>{{ patient.user.phone}}</span>
+					</td>
+					<td data-title="Action">
+						<a href="{{ path('app_consultation_index')}}">
+							<span>Consultations</span>
+							<i class="fa-regular fa-file"></i>
+						</a>
+					</td>
+				</tr>
+
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+				
+
+
+			</tbody>
+		</table>
+
+	</div>
+
+{% endblock %}

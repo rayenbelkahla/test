@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>Sa7ty</title>
+		<meta name="author" content="Mediax">
+		<meta name="description" content="Mediax - Health & Medical HTML Template">
+		<meta name="keywords" content="Mediax - Health & Medical HTML Template">
+		<meta
+		name="robots" content="INDEX,FOLLOW">
+
+		<!-- Mobile Specific Metas -->
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Favicons - Place favicon.ico in the root directory -->
+		<link rel="apple-touch-icon" sizes="57x57" href="{{asset('assets/img/favicons/apple-icon-57x57.png')}}">
+		<link rel="apple-touch-icon" sizes="60x60" href="{{asset('assets/img/favicons/apple-icon-60x60.png')}}">
+		<link rel="apple-touch-icon" sizes="72x72" href="{{asset('assets/img/favicons/apple-icon-72x72.png')}}">
+		<link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/favicons/apple-icon-76x76.png')}}">
+		<link rel="apple-touch-icon" sizes="114x114" href="{{asset('assets/img/favicons/apple-icon-114x114.png')}}">
+		<link rel="apple-touch-icon" sizes="120x120" href="{{asset('assets/img/favicons/apple-icon-120x120.png')}}">
+		<link rel="apple-touch-icon" sizes="144x144" href="{{asset('assets/img/favicons/apple-icon-144x144.png')}}">
+		<link rel="apple-touch-icon" sizes="152x152" href="{{asset('assets/img/favicons/apple-icon-152x152.png')}}">
+		<link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/img/favicons/apple-icon-180x180.png')}}">
+		<link rel="icon" type="image/png" sizes="192x192" href="{{asset('assets/img/favicons/android-icon-192x192.png')}}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{asset('assets/img/favicons/favicon-32x32.png')}}">
+		<link rel="icon" type="image/png" sizes="96x96" href="{{asset('assets/img/favicons/favicon-96x96.png')}}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/img/favicons/favicon-16x16.png')}}">
+		<link rel="manifest" href="{{asset('assets/img/favicons/manifest.json')}}">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="{{asset('assets/img/favicons/ms-icon-144x144.png')}}">
+		<meta
+		name="theme-color" content="#ffffff">
+
+		<!--==============================
+										        Google Fonts
+										        ============================== -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+		<!--==============================
+										            All CSS File
+										        ============================== -->
+		<!-- Bootstrap -->
+		<link
+		rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"> <!-- Fontawesome Icon -->
+		<link
+		rel="stylesheet" href="{{asset('assets/css/fontawesome.min.css')}}">
+		<!-- Magnific Popup -->
+		<link
+		rel="stylesheet" href="{{asset('assets/css/magnific-popup.min.css')}}">
+		<!-- Swiper Js -->
+		<link
+		rel="stylesheet" href="{{asset('assets/css/swiper-bundle.min.css')}}">
+		<!-- datetimepicker -->
+		<link
+		rel="stylesheet" href="{{asset('assets/css/jquery.datetimepicker.min.css')}}">
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+		{% block addstylesheets %}
+
+		{% endblock %}
+
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+
+	<body>
+
+		<!--==============================
+										     Preloader
+										  ==============================-->
+		{# <div class="preloader ">
+										        <div class="preloader-inner">
+										            <div class="loader"></div>
+										        </div>
+										    </div> #}
+
+			{% if app.user %}
+			<!--Mobile Menu
+														  ============================== -->
+				<div class="th-menu-wrapper"> <div class="th-menu-area text-center">
+					<button class="th-menu-toggle">
+						<i class="fal fa-times"></i>
+					</button>
+					<div class="mobile-logo">
+						<a href="home-medical-clinic.html"><img src="{{ asset('assets/img/logo.svg')}}" alt="Mediax"></a>
+					</div>
+					<div class="th-mobile-menu">
+						<ul>
+							{% if app.user %}
+								{% if app.user.patient %}
+									<li>
+										<a href="{{ path('app_doctor_index')}}">Doctors</a>
+
+									</li>
+									<li>
+										<a href="#">Dossier médical</a>
+
+									</li>
+									<li>
+										<a href="#">Réservations</a>
+
+									</li>
+								{% elseif app.user.secretary %}
+									<li>
+										<a href="#">Doctors</a>
+
+									</li>
+								{% elseif app.user.doctor %}
+									<li class="menu-item-has-children">
+														<a href="#">Cabinet</a>
+														<ul class="sub-menu">
+															<li>
+																<a href="#">les rendez-vous</a>
+															</li>
+															<li>
+																<a href="#">liste des patients</a>
+															</li>
+																														<li>
+																<a href="#">liste des secrétaires</a>
+															</li>
+														</ul>
+													</li>
+								{% endif %}
+							{% endif %}
+
+							<li>
+								<a href="{{ path('app_blog_index')}}">Blog</a>
+
+							</li>
+							<li>
+								{% if app.user %}
+									{% if app.user.patient and app.user.patient.id %}
+										<a href="{{ path('app_patient_edit', {'id': app.user.patient.id}) }}" class="th-btn">{{ app.user.firstname }}</a>
+									{% elseif app.user.secretary and app.user.secretary.id %}
+										<a href="{{ path('app_secretary_edit', {'id': app.user.secretary.id}) }}" class="th-btn">{{ app.user.firstname }}</a>
+									{% elseif app.user.doctor and app.user.doctor.id %}
+										<a href="{{ path('app_doctor_edit', {'id': app.user.doctor.id}) }}" class="th-btn">{{ app.user.firstname }}</a>
+									{% endif %}
+								{% endif %}
+
+							</li>
+							<li>
+								<a href="{{ path('app_logout') }}" class="th-btn">Déconnexion</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--==============================
+															Header Area
+														==============================-->
+			<header class="th-header header-layout1">
+
+				<div
+					class="sticky-wrapper">
+					<!-- Main Menu Area -->
+					<div class="menu-area">
+						<div class="container">
+							<div class="row align-items-center justify-content-between">
+								<div class="col-auto">
+									<div class="header-logo">
+										<div class="logo-bg" data-bg-src="assets/img/bg/logo_bg_1.png"></div>
+										<a href="#"><img src="{{asset('assets/img/logo.svg')}}" alt="Mediax"></a>
+									</div>
+								</div>
+								<div class="col-auto d-none d-lg-inline-block">
+									<nav class="main-menu d-none d-lg-inline-block">
+										<ul>
+											{% if app.user %}
+												{% if app.user.patient %}
+													<li>
+														<a href="{{ path('app_doctor_index')}}">Doctors</a>
+
+													</li>
+													<li>
+														<a href="{{ path('app_doctor_index')}}">Dossier médical</a>
+
+													</li>
+													<li>
+														<a href="{{ path('app_appointment_index')}}">Réservations</a>
+
+													</li>
+												{% elseif app.user.secretary %}
+													<li>
+														<a href="#">Doctors</a>
+
+													</li>
+												{% elseif app.user.doctor %}
+													<li class="menu-item-has-children">
+														<a href="#">Cabinet</a>
+														<ul class="sub-menu">
+															<li>
+																<a href="#">les rendez-vous</a>
+															</li>
+															<li>
+																<a href="#">liste des patients</a>
+															</li>
+																														<li>
+																<a href="#">liste des secrétaires</a>
+															</li>
+														</ul>
+													</li>
+												
+												{% endif %}
+											{% endif %}
+											<li>
+												<a href="{{ path('app_blog_index')}}">Blog</a>
+											</li>
+
+										</ul>
+									</nav>
+								</div>
+								<div class="col-auto">
+									<div class="header-button">
+
+										{% if app.user %}
+											{% if app.user.patient and app.user.patient.id %}
+												<a href="{{ path('app_patient_edit', {'id': app.user.patient.id}) }}" class="th-btn">{{ app.user.firstname }}</a>
+											{% elseif app.user.secretary  and app.user.secretary.id %}
+												<a href="{{ path('app_secretary_edit', {'id': app.user.secretary.id}) }}" class="th-btn">{{ app.user.firstname }}</a>
+											{% elseif app.user.doctor and app.user.doctor.id %}
+												<a href="{{ path('app_doctor_edit', {'id': app.user.doctor.id}) }}" class="th-btn">{{ app.user.firstname }}</a>
+											{% endif %}
+										{% endif %}
+
+
+										<a href="{{ path('app_logout') }}" class="th-btn">Déconnexion</a>
+										<button type="button" class="th-menu-toggle d-block d-lg-none">
+											<i class="far fa-bars"></i>
+										</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+		{% else %}
+			<!--Mobile Menu
+														  ============================== -->
+			<div class="th-menu-wrapper">
+				<div class="th-menu-area text-center">
+					<button class="th-menu-toggle">
+						<i class="fal fa-times"></i>
+					</button>
+					<div class="mobile-logo">
+						<a href="home-medical-clinic.html"><img src="assets/img/logo.svg" alt="Mediax"></a>
+					</div>
+					<div class="th-mobile-menu">
+						<ul>
+							<li>
+								<a href="{{ path('app_homePage') }}">Home</a>
+
+							</li>
+							<li>
+								<a href="{{ path('app_about') }}">About Us</a>
+							</li>
+							<li class="menu-item-has-children">
+								<a href="#">Service</a>
+								<ul class="sub-menu">
+									<li>
+										<a href="#">Service</a>
+									</li>
+									<li>
+										<a href="#">Service Details</a>
+									</li>
+								</ul>
+							</li>
+
+							<li>
+								<a href="{{ path('app_blog_index')}}">Blog</a>
+
+							</li>
+							<li>
+								<a href="{{ path('app_contact') }}">Contact</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--==============================
+															Header Area
+														==============================-->
+			<header class="th-header header-layout1">
+
+				<div
+					class="sticky-wrapper">
+					<!-- Main Menu Area -->
+					<div class="menu-area">
+						<div class="container">
+							<div class="row align-items-center justify-content-between">
+								<div class="col-auto">
+									<div class="header-logo">
+										<div class="logo-bg" data-bg-src="assets/img/bg/logo_bg_1.png"></div>
+										<a href="#"><img src="{{asset('assets/img/logo.svg')}}" alt="Mediax"></a>
+									</div>
+								</div>
+								<div class="col-auto d-none d-lg-inline-block">
+									<nav class="main-menu d-none d-lg-inline-block">
+										<ul>
+
+											<li>
+												<a href="{{ path('app_homePage') }}">Home</a>
+											</li>
+											<li>
+												<a href="{{ path('app_about') }}">About Us</a>
+											</li>
+											<li class="menu-item-has-children">
+												<a href="#">Service</a>
+												<ul class="sub-menu">
+													<li>
+														<a href="#">Service</a>
+													</li>
+													<li>
+														<a href="#">Service Details</a>
+													</li>
+												</ul>
+											</li>
+
+											<li>
+												<a href="{{ path('app_blog_index')}}">Blog</a>
+
+											</li>
+											<li>
+												<a href="{{ path('app_contact') }}">Contact</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<div class="col-auto">
+									<div class="header-button">
+										<button type="button" class="icon-btn userMenu d-none d-xl-inline-block">
+											<i class="far fa-search"></i>
+										</button>
+										<a href="{{ path('app_login') }}" class="th-btn">Sign in</a>
+										<a href="{{ path('app_register') }}" class="th-btn style4">Sign up</a>
+
+										<button type="button" class="th-menu-toggle d-block d-lg-none">
+											<i class="far fa-bars"></i>
+										</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+		{% endif %}
+
+		{% block body %}{% endblock %}
+	</body>
+
+	<!--==============================
+						Footer Area
+					==============================-->
+	{% if is_granted('IS_AUTHENTICATED_FULLY')== false %}
+		<footer class="footer-wrapper footer-layout1" data-bg-src="assets/img/bg/footer_bg_1.jpg">
+			<div class="container z-index-common">
+				<div class="newsletter-wrap">
+					<div class="newsletter-content">
+						<h2 class="sec-title">Subscribe for newsletter</h2>
+					</div>
+					<form class="newsletter-form">
+						<div class="form-group">
+							<input class="form-control" type="email" placeholder="Email Address" required="">
+						</div>
+						<button type="submit" class="th-btn shadow-1">Subscribe</button>
+					</form>
+				</div>
+			</div>
+			<div class="widget-area">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-md-6 col-xl-auto">
+							<div class="widget footer-widget">
+								<div class="th-widget-about">
+									<div class="about-logo">
+										<a href="home-medical-clinic.html"><img src="assets/img/logo-footer.svg" alt="Mediax"></a>
+									</div>
+									<p class="about-text">Subscribe to out newsletter today to receive latest news administrate cost effective for tactical data.</p>
+									<p class="footer-info">
+										<i class="fal fa-location-dot"></i>
+										Monastir Esprim
+									</p>
+									<p class="footer-info">
+										<i class="fal fa-envelope"></i>
+										<a href="mailto:sa7ty.contact@gmail.com" class="info-box_link">sa7ty.contact@gmail.com</a>
+									</p>
+									<p class="footer-info">
+										<i class="fal fa-phone"></i>
+										<a href="tel:+40276328246" class="info-box_link">+(216) 50 430 778</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-xl-auto">
+							<div class="widget widget_nav_menu footer-widget">
+								<h3 class="widget_title">Quick Links</h3>
+								<div class="menu-all-pages-container">
+									<ul class="menu">
+										<li>
+											<a href="{{ path('app_about') }}">About Us</a>
+										</li>
+										<li>
+											<a href="">Terms of Use</a>
+										</li>
+										<li>
+											<a href="">Our Services</a>
+										</li>
+										<li>
+											<a href="{{ path('app_blog_index') }}">Blog</a>
+										</li>
+										<li>
+											<a href="">Privacy policy</a>
+										</li>
+										<li>
+											<a href="{{ path('app_contact') }}">Contact Us</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-xl-auto">
+							<div class="widget widget_nav_menu footer-widget">
+								<h3 class="widget_title">Popular service</h3>
+								<div class="menu-all-pages-container">
+									<ul class="menu">
+										<li>
+											<a href="service-details.html">Cardiology Care</a>
+										</li>
+										<li>
+											<a href="service-details.html">Urgent Care</a>
+										</li>
+										<li>
+											<a href="service-details.html">Orthopedic Care</a>
+										</li>
+										<li>
+											<a href="service-details.html">Diagnosis department</a>
+										</li>
+										<li>
+											<a href="service-details.html">Gastroenterology</a>
+										</li>
+										<li>
+											<a href="service-details.html">Therapy department</a>
+										</li>
+										<li>
+											<a href="service-details.html">Dental service</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						{# <div class="col-md-6 col-xl-auto">
+							<div class="widget footer-widget">
+								<h3 class="widget_title">Recent Posts</h3>
+								<div class="recent-post-wrap">
+									<div class="recent-post">
+										<div class="media-img">
+											<a href="blog-details.html"><img src="assets/img/blog/recent-post-2-1.jpg" alt="Blog Image"></a>
+										</div>
+										<div class="media-body">
+											<h4 class="post-title">
+												<a class="text-inherit" href="blog-details.html">How Business Is Taking Over & What to Do About It</a>
+											</h4>
+											<div class="recent-post-meta">
+												<a href="blog.html">
+													<i class="fal fa-calendar"></i>21 Jun, 2024</a>
+											</div>
+										</div>
+									</div>
+									<div class="recent-post">
+										<div class="media-img">
+											<a href="blog-details.html"><img src="assets/img/blog/recent-post-2-2.jpg" alt="Blog Image"></a>
+										</div>
+										<div class="media-body">
+											<h4 class="post-title">
+												<a class="text-inherit" href="blog-details.html">Health vs. Wealth Navigate Business in Medicine</a>
+											</h4>
+											<div class="recent-post-meta">
+												<a href="blog.html">
+													<i class="fal fa-calendar"></i>22 Jun, 2024</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> #}
+					</div>
+				</div>
+			</div>
+			<div class="copyright-wrap">
+				<div class="container">
+					<div class="row gy-2 align-items-center">
+						<div class="col-md-7">
+							<p class="copyright-text">Copyright
+								<i class="fal fa-copyright"></i>
+								2024
+								<a href="home-medical-clinic.html">Mediax</a>. All Rights Reserved.</p>
+						</div>
+						<div class="col-md-5 text-center text-md-end">
+							<div class="th-social">
+								<a href="https://www.facebook.com/">
+									<i class="fab fa-facebook-f"></i>
+								</a>
+								<a href="https://www.twitter.com/">
+									<i class="fab fa-twitter"></i>
+								</a>
+								<a href="https://www.linkedin.com/">
+									<i class="fab fa-linkedin-in"></i>
+								</a>
+								<a href="https://www.whatsapp.com/">
+									<i class="fab fa-whatsapp"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+	{% endif %}
+
+	<!-- Scroll To Top -->
+	<div class="scroll-top">
+		<svg class="progress-circle svg-content" width="100%" height="100%" viewbox="-1 -1 102 102">
+			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+		</svg>
+	</div>
+
+	{% block Javascriptslinks %}
+		<!--==============================
+										    All Js File
+										============================== -->
+		<!-- Jquery --><script src="{{asset('assets/js/vendor/jquery-3.7.1.min.js')}}"> </script>
+		<!-- Swiper Js -->
+		<script src="{{asset('assets/js/swiper-bundle.min.js')}}"></script>
+		<!-- Bootstrap -->
+		<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+		<!-- Magnific Popup -->
+		<script src="{{asset('assets/js/jquery.magnific-popup.min.js')}}"></script>
+		<!-- Counter Up -->
+		<script src="{{asset('assets/js/jquery.counterup.min.js')}}"></script>
+		<!-- datetimepicker -->
+		<script src="{{asset('assets/js/jquery.datetimepicker.min.js')}}"></script>
+		<!-- Range Slider -->
+		<script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
+		<!-- Isotope Filter -->
+		<script src="{{asset('assets/js/imagesloaded.pkgd.min.js')}}"></script>
+		<script src="{{asset('assets/js/isotope.pkgd.min.js')}}"></script>
+
+		<!-- Main Js File -->
+		<script src="{{asset('assets/js/main.js')}}"></script>
+
+	{% endblock %}
+	{% block addJavascript %}
+	
+	
+	{% endblock %}
+</html>

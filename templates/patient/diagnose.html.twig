@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diagnose - {{ patient.fullName }}{% endblock %}
+
+{% block body %}
+<div class="chat-container">
+    <div class="chat-box">
+        <h2>Chat with our Diagnosis API</h2>
+        <div class="messages">
+            {% for flash_message in app.flashes('api_error') %}
+                <div class="alert alert-danger">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            {% for result in results %}
+                <div class="message api">
+                    <p><strong>Disease:</strong> {{ result.disease }}</p>
+                    <p><strong>Description:</strong> {{ result.description }}</p>
+                    <p><strong>Precautions:</strong></p>
+                    <ul>
+                        {% if result.precautions is iterable %}
+                            {% for precaution in result.precautions %}
+                                <li>{{ precaution }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li>{{ result.precautions }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {{ form_start(form, { 'attr': { 'class': 'input-box' } }) }}
+    {{ form_errors(form.symptoms) }}
+    {{ form_widget(form.symptoms, { 'attr': { 'class': 'form-control', 'multiple': 'multiple' } }) }}
+    <button type="submit">Send</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+
+{% block addstylesheets %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
+<style>
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .chat-box {
+        width: 80%;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+    .messages {
+        height: 300px;
+        overflow-y: scroll;
+        background-color: #e9e9e9;
+        padding: 5px;
+    }
+    .message {
+        padding: 5px;
+        border-radius: 10px;
+        margin: 5px;
+        color: black;
+        background-color: #4caf50; /* API messages */
+        text-align: left;
+    }
+    .input-box {
+        width: 80%;
+        display: flex;
+    }
+    .input-box input {
+        flex: 1;
+        padding: 10px;
+        margin-right: 5px;
+    }
+    .input-box button {
+        padding: 10px 20px;
+    }
+    .alert {
+        padding: 10px;
+        background-color: #f44336; /* Red */
+        color: white;
+        margin-bottom: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.getElementById('symptomsForm').addEventListener('submit', function(event) {
+        var input = document.getElementById('symptomsInput');
+        if (input.value.trim() === '') {
+            alert('Please enter some symptoms before submitting.');
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+<script>
+    new MultiSelectTag('countries')  // id
+</script>
+
+{% endblock %}

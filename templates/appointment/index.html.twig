@@ -1,0 +1,354 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appointment index{% endblock %}
+{% block addstylesheets %}
+  <style>
+        .card {
+            width: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px;
+            transition: height 0.3s ease;
+        }
+
+        .card .content {
+            padding: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card.expanded {
+            height: auto;
+        }
+
+        .card.expanded .content {
+            margin-bottom: 20px;
+        }
+        #more {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+        .read-more-btn {
+            background-color: white;
+            color:#007bff;
+            border: none;
+            padding: 8px 16px;
+            position: relative;
+            cursor: pointer;
+            font-weight: bolder;
+        }
+
+        .read-more-btn:hover {
+            color: #0056b3;
+        }
+
+        .nav-btn {
+            background-color: #ccc;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        td{
+            background-color: #e5f9ff;
+            width: fit-content;
+            border-radius: 5px;
+            width: 65px;
+            text-align: center;
+            height: 30px;
+            border: 3px solid #ffff;
+        }
+        td:hover{
+            background-color: #ccf2ff;
+        }
+        thead td:hover{
+            background-color: transparent;
+        } 
+        thead td{
+            font-style: oblique;
+            font-weight: lighter;
+            font-size: small;
+            background-color: transparent;
+    
+        }
+        thead td::first-line{
+            font-size: large;
+            font-weight: bolder;
+        }
+        .desc {
+        flex: 1;
+        }
+        .desc h2{
+            color:#007bff;
+            font:lighter ;
+        }
+        .calond{
+            flex: 2;
+            width: fit-content;
+        }
+        .table{  
+            display: flex;
+            width: fit-content;
+        }
+        .table button{
+            width: 20px;
+            height: 30px;
+            padding-top: 0px;
+            border: none;
+            display: flex;
+            justify-content: center;
+            color: #004080;
+            font-size: larger;
+            background-color: transparent;
+            border-radius: 50%;
+        }
+        .table button::content{
+            padding-top: 10px;
+        }
+        .table button:hover{
+            background-color:#e7f4fd;
+        }
+        .visit{
+            border: none;
+            border-radius: 10px;
+            background-color: #107aca;
+            color: white;
+            height: 40px;
+            width: 200px;
+            font-weight: bolder;
+        }
+        .visit:hover{
+            background-color: #045fae;
+            cursor: pointer;
+        }
+        a.path{
+            color: #107aca;
+            font-weight: bolder;
+            text-decoration: none;
+        }
+        a.path:hover{
+            color: #045fae;
+            text-decoration:underline;
+        }
+        p.secteur{
+            font-weight: lighter;
+            color: gray;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Appointment index</h1>
+{# 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Hour</th>
+                <th>PatientStatus</th>
+                <th>Progress</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.hour }}</td>
+                <td>{{ appointment.patientStatus ? 'Yes' : 'No' }}</td>
+                <td>{{ appointment.progress }}</td>
+                <td>
+                    <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">show</a>
+                    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_appointment_new') }}">Create new</a> #}
+    
+{% for x in range(1,10) %}
+
+  <div class="card">
+    <div class="content">
+      <div id="desc{{ x }}" class="desc">
+        <h2> Dr Marie-Eve CAUCHON-RAULT</h2>
+        <h4>Médecin généraliste</h4>
+        <p>Consultation vidéo disponible</p>
+        <a id="visit{{ x }}" class="visit" href="{{ path('app_appointment_new') }}">PRENDRE RENDEZ-VOUS</a>
+        
+      </div>
+      <div id="calond{{ x }}" class="calond">
+        <div id="table{{ x }}" class="table">
+          <button class="nav-btn prevWeekBtn" data-card="{{ x }}">&lt;</button>
+          <table>
+            <thead>
+              <tr id="tableHeaders{{ x }}" class="tableHeaders">
+                <!-- Table headers will be populated dynamically -->
+              </tr>
+            </thead>
+            <tbody>
+               <tr>
+                                <td>07:30</td>
+                                <td>07:30</td>
+                                <td>07:30</td>
+                                <td>07:30</td>
+                                <td>07:30</td>
+                                <td>07:30</td>
+                            </tr>
+                            <tr>
+                                <td>08:00</td>
+                                <td>08:00</td>
+                                <td>08:00</td>
+                                <td>08:00</td>
+                                <td>08:00</td>
+                                <td>08:00</td>
+                            </tr>
+                            <tr class="extra-rows" style="display: none;">
+                                <td>08:30</td>
+                                <td>08:30</td>
+                                <td>08:30</td>
+                                <td>08:30</td>
+                                <td>08:30</td>
+                                <td>08:30</td>
+                            </tr>
+                            <tr class="extra-rows" style="display: none;">
+                                <td>09:00</td>
+                                <td>09:00</td>
+                                <td>09:00</td>
+                                <td>09:00</td>
+                                <td>09:00</td>
+                                <td>09:00</td>
+                            </tr>
+                            <tr class="extra-rows" style="display: none;">
+                                <td>09:30</td>
+                                <td>09:30</td>
+                                <td>09:30</td>
+                                <td>09:30</td>
+                                <td>09:30</td>
+                                <td>09:30</td>
+                            </tr>
+            </tbody>
+          </table>
+          <button class="nav-btn nextWeekBtn" data-card="{{ x }}">&gt;</button>
+        </div>
+        <div id="more {{ x }}" class="more">
+          <button class="read-more-btn" data-card="{{ x }}">VOIR PLUS D'HORAIRES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+{% endblock %}
+{% block addJavascript %}
+   <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    const prevWeekBtns = document.querySelectorAll('.prevWeekBtn');
+    const nextWeekBtns = document.querySelectorAll('.nextWeekBtn');
+    const tableHeaders = document.querySelectorAll('[id^="tableHeaders"]');
+    let currentWeeks = Array.from({ length:  10 }, (_, index) => index); // Assuming you have  10 cards
+    readMoreBtns.forEach((readMoreBtn) => {
+      const cardIndex = readMoreBtn.getAttribute('data-card');
+      readMoreBtn.addEventListener('click', function () {
+        const extraRows = document.querySelectorAll(`#calond${cardIndex} .extra-rows`);
+        extraRows.forEach((extraRow) => {
+          extraRow.style.display = extraRow.style.display === 'none' ? 'table-row' : 'none';
+        });
+      });
+    });
+
+  function populateDates() {
+      tableHeaders.forEach((header, index) => {
+        const cardIndex = 0;
+        const daysOfWeek = ['DIM', 'LUN', 'MARD', 'MERC', 'JEUD', 'VEND', 'SAM'];
+        const headerId = `tableHeaders${cardIndex}`;
+        const startDateOfWeek = new Date();
+        startDateOfWeek.setDate(startDateOfWeek.getDate() - startDateOfWeek.getDay()); // Adjust to start of the week
+        header.innerHTML='';
+        for (let i = 0; i < 6; i++) {
+          const headerDate = new Date(startDateOfWeek.getTime());
+          headerDate.setDate(headerDate.getDate() + (7 * currentWeeks[cardIndex]) + i);
+          const dayOfWeek = daysOfWeek[headerDate.getDay()];
+          const dayOfMonth = headerDate.getDate();
+          const month = headerDate.toLocaleDateString('fr-FR', { month: 'short' });
+          const headerText = `${dayOfWeek} <br> ${dayOfMonth} ${month}`;
+          const th = document.createElement('td');
+          th.innerHTML = headerText;
+          if (i === 0) {
+            th.classList.add('current-week');
+          }
+          //header.innerHTML=''; // Clear existing content
+          header.appendChild(th);
+        }
+        
+      });
+    }
+
+    // Initial population of the tables
+    populateDates();
+
+    
+    prevWeekBtns.forEach((prevWeekBtn) => {
+      const cardIndex = prevWeekBtn.getAttribute('data-card');
+      prevWeekBtn.addEventListener('click', function () {
+        if (currentWeeks[cardIndex] >=  1) {
+          currentWeeks[cardIndex]--;
+          document.getElementById(`tableHeaders${cardIndex}`).innerHTML = '';
+          populate(cardIndex, currentWeeks[cardIndex]);
+        }
+      });
+    });
+
+    nextWeekBtns.forEach((nextWeekBtn) => {
+      const cardIndex = nextWeekBtn.getAttribute('data-card');
+      nextWeekBtn.addEventListener('click', function () {
+        currentWeeks[cardIndex]++;
+        document.getElementById(`tableHeaders${cardIndex}`).innerHTML = '';
+        populate(cardIndex, currentWeeks[cardIndex]);
+      });
+    });
+
+    function populate(cardIndex, currentWeek) {
+      const daysOfWeek = ['DIM', 'LUN', 'MARD', 'MERC', 'JEUD', 'VEND', 'SAM'];
+      const headerId = `tableHeaders${cardIndex}`;
+      const startDateOfWeek = new Date();
+      startDateOfWeek.setDate(startDateOfWeek.getDate() - startDateOfWeek.getDay()); // Adjust to start of the week
+
+      for (let i =  0; i <  6; i++) {
+        const headerDate = new Date(startDateOfWeek.getTime());
+        headerDate.setDate(headerDate.getDate() + (7 * currentWeek) + i);
+        const dayOfWeek = daysOfWeek[headerDate.getDay()];
+        const dayOfMonth = headerDate.getDate();
+        const month = headerDate.toLocaleDateString('fr-FR', { month: 'short' });
+        const headerText = `${dayOfWeek} <br> ${dayOfMonth} ${month}`;
+        const th = document.createElement('td');
+        th.innerHTML = headerText;
+        if (i ===  0) {
+          th.classList.add('current-week');
+        }
+        document.getElementById(headerId).appendChild(th);
+      }
+    }
+
+    // Initial population of the tables
+    tableHeaders.forEach((_, index) => {
+      populate(index, currentWeeks[index]);
+    });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Doctor index{% endblock %}
+
+{% block body %}
+<div class="space">
+    <table class="cart_table woocommerce-cart-form">
+        <thead>
+            <tr>
+                <th class="cart-col-Nom">Id</th>
+                <th class="cart-col-Region">Specialty</th>
+                <th class="cart-col-phone">OfficeRegion</th>
+                <th class="cart-col-consultaion">OfficeAddress</th>
+                <th class="cart-col-Action">OfficePhone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ doctor.id }}</td>
+                <td>{{ doctor.specialty }}</td>
+                <td>{{ doctor.officeRegion }}</td>
+                <td>{{ doctor.officeAddress }}</td>
+                <td>{{ doctor.officePhone }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

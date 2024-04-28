@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog index
+{% endblock %}
+
+{% block body %}
+	{# <h1>Blog index</h1>
+		
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Title</th>
+						<th>Details</th>
+						<th>CreationDate</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for blog in blogs %}
+						<tr>
+							<td>{{ blog.id }}</td>
+							<td>{{ blog.title }}</td>
+							<td>{{ blog.details }}</td>
+							<td>{{ blog.creationDate }}</td>
+							<td>
+								<a href="{{ path('app_blog_show', {'id': blog.id}) }}">show</a>
+								<a href="{{ path('app_blog_edit', {'id': blog.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		
+			<a href="{{ path('app_blog_new') }}">Create new</a> #}
+
+	<section class="th-blog-wrapper space-top space-extra-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-xxl-8 col-lg-7">
+								 {% if is_granted('ROLE_DOCTOR') %}
+									<a href="{{ path('app_blog_new') }}" class="th-btn btn-sm">New</a>
+								{% endif %}
+					{% for blog in blogs %}
+					
+						{# <tr>
+												                            <td>{{ blog.id }}</td>
+												                            <td>{{ blog.title }}</td>
+												                            <td>{{ blog.details }}</td>
+												                            <td>{{ blog.creationDate }}</td>
+												                            <td>
+												                                <a href="{{ path('app_blog_show', {'id': blog.id}) }}">show</a>
+												                                <a href="{{ path('app_blog_edit', {'id': blog.id}) }}">edit</a>
+												                            </td>
+												                        </tr> #}
+						<div class="th-blog blog-single">
+							<div class="blog-content">
+								<div class="blog-meta">
+									<a class="author" href="{{ path('app_doctor_show', {'id': blog.getDoctor().id}) }}">
+										<i class="fal fa-user"></i>
+										{{ blog.getDoctor().getUser().firstName}}
+										{{ blog.getDoctor().getUser().lastName}}</a>
+									<a>
+										<i class="fal fa-calendar"></i>
+										{{ blog.creationDate|date('F j, Y H:i') }}</a>
+
+
+									{# <a href="blog-details.html">
+																			<i class="fal fa-comments"></i>Comments (3)</a> #}
+								</div>
+								<h2 class="blog-title">
+									<a>{{ blog.title }}</a>
+								</h2>
+								<p class="blog-text">{{ blog.details }}</p>
+								<a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="th-btn btn-sm">Read More</a>
+							</div>
+						</div>
+
+					{% else %}
+						<tr>
+							<td colspan="5">no records found</td>
+						</tr>
+					{% endfor %}
+
+
+					<div class="th-pagination text-center">
+						<ul>
+							<li><a href="blog.html">1</a></li>
+							<li><a href="blog.html">2</a></li>
+							<li><a href="blog.html">3</a></li>
+							<li><a href="blog.html"><i class="far fa-arrow-right"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-xxl-4 col-lg-5">
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+
