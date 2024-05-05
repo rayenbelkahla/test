@@ -20,7 +20,34 @@ class BlogRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Blog::class);
     }
+    public function findSortedByUpvotes(): array
+    {
+        return $this->createQueryBuilder('b')
+            ->leftJoin('b.votes', 'v') // Left join votes
+            ->select(
+                'b', // Select the blog entity
+                'SUM(CASE WHEN v.voteType = :upvote THEN 1 ELSE 0 END) AS HIDDEN upvoteCount' // Count only upvotes
+            )
+            ->setParameter('upvote', 'upvote')
+            ->addGroupBy('b.id') // Group by blog ID
+            ->orderBy('upvoteCount', 'DESC') // Order by upvoteCount in descending order
+            ->getQuery()
+            ->getResult();
+    }
+    public function findByKeyword($keyword): array
+{
+    return $this->createQueryBuilder('b')
+        ->andWhere('b.title LIKE :keyword OR b.details LIKE :keyword')
+        ->setParameter('keyword', '%'.$keyword.'%')
+        ->getQuery()
+        ->getResult();
+}
+    
+    
 
+    
+
+    
 //    /**
 //     * @return Blog[] Returns an array of Blog objects
 //     */

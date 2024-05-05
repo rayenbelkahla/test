@@ -47,6 +47,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $creationDate = null;
+  
+
 
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Patient $Patient = null;
@@ -222,7 +224,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
     public function getDoctor(): ?Doctor
     {
         return $this->Doctor;

@@ -8,6 +8,21 @@ app_login:
     path: /login
     controller: App\Controller\SecurityController::login
     methods: ['GET', 'POST']
+app_blog_upvote:
+    path: /blog/{id}/upvote
+    controller: App\Controller\BlogController::upvote
+    methods: ['GET', 'POST']
+
+
+app_blog_downvote:
+    path: /blog/{id}/downvote
+    controller: App\Controller\BlogController::downvote
+    methods: ['GET', 'POST']
+search_blog:
+    path: /search
+    controller: App\Controller\BlogController::search
+    methods: GET
+
 
 # app_home:
 #     path: /

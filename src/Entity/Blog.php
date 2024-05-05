@@ -26,6 +26,9 @@ class Blog
     #[ORM\JoinColumn(nullable: false)]
     private ?Doctor $doctor = null;
 
+    #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'blog')]
+    private $votes;
+
     public function getId(): ?int
     {
         return $this->id;
